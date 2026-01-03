@@ -62,8 +62,7 @@ public class Revertible(Object trackedObject) : IRevertible
             return _propertiesToTrack.Any(p => HasChanged(p));
         }
 
-        var currentValue = GetPropertyInfo(propertyName)
-            .GetValue(TrackedObject);
+        var currentValue = GetValue(propertyName);
 
         if (_pristineValues.TryGetValue(propertyName, out var pristineValue))
         {
@@ -89,7 +88,7 @@ public class Revertible(Object trackedObject) : IRevertible
 
         if (_pristineValues.TryGetValue(propertyName, out var pristineValue))
         {
-            GetPropertyInfo(propertyName).SetValue(TrackedObject, pristineValue);
+            SetValue(propertyName, pristineValue);
         }
     }
 
@@ -108,11 +107,22 @@ public class Revertible(Object trackedObject) : IRevertible
         }
         else
         {
-            var currentValue = GetPropertyInfo(propertyName)
-                .GetValue(TrackedObject);
+            var currentValue = GetValue(propertyName);
 
             _pristineValues[propertyName] = currentValue!;
         }
+    }
+
+    protected object GetValue(string propertyName)
+    {
+        GuardPropertyName(propertyName);
+        return GetPropertyInfo(propertyName).GetValue(TrackedObject);
+    }
+
+    protected void SetValue(string propertyName, object pristineValue)
+    {
+        GuardPropertyName(propertyName);
+        GetPropertyInfo(propertyName).SetValue(TrackedObject, pristineValue);
     }
 
     /// <summary>
@@ -120,7 +130,7 @@ public class Revertible(Object trackedObject) : IRevertible
     /// </summary>
     /// <param name="propertyName"></param>
     /// <exception cref="RevertibleException"></exception>
-    private void GuardPropertyName(string? propertyName)
+    protected void GuardPropertyName(string? propertyName)
     {
         if (propertyName != null && !_propertiesToTrack.Contains(propertyName))
         {
@@ -132,13 +142,13 @@ public class Revertible(Object trackedObject) : IRevertible
     /// Guard to ensure that change tracking is enabled
     /// </summary>
     /// <exception cref="RevertibleException"></exception>
-    private void GuardChangeTracking()
+    protected void GuardChangeTracking()
     {
         if (!_isChangeTrackingActive)
             throw new RevertibleException("Change tracking must be enabled.");
     }
 
-    private PropertyInfo GetPropertyInfo(string? propertyName)
+    protected PropertyInfo GetPropertyInfo(string? propertyName)
     {
         var propertyInfo = TrackedObject.GetType().GetProperty(propertyName);
 
