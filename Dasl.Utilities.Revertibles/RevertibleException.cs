@@ -1,0 +1,7 @@
+﻿
+
+namespace Dasl.Utilities.Revertibles;
+
+public class RevertibleException(string? message) : Exception(message)
+{
+}
