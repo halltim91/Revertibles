@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Dasl.Utilities.Revertibles;
+using Dhazel.Utilities.Revertibles;
 
 
-namespace Dasl.Utilities.Mvvm.Validators;
+namespace Dhazel.Utilities.Mvvm.Validators;
 
 public partial class RevertibleValidator : ObservableValidator, IRevertible
 {

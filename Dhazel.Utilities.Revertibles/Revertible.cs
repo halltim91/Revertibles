@@ -1,7 +1,7 @@
 ﻿
 using System.Reflection;
 
-namespace Dasl.Utilities.Revertibles;
+namespace Dhazel.Utilities.Revertibles;
 
 /// <summary>
 /// Can track any given object and detect changes to that object's properties.

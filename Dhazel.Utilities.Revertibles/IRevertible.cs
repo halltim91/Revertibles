@@ -1,6 +1,6 @@
 ﻿
 
-namespace Dasl.Utilities.Revertibles;
+namespace Dhazel.Utilities.Revertibles;
 
 public interface IRevertible
 {

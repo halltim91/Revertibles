@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
@@ -16,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dasl.Utilities.Mvvm\Dasl.Utilities.Mvvm.csproj" />
+    <ProjectReference Include="..\Dhazel.Utilities.Revertibles\Dhazel.Utilities.Revertibles.csproj" />
   </ItemGroup>
 
   <ItemGroup>

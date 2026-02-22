@@ -1,9 +1,9 @@
 
-using Dasl.Utilities.Mvvm.Validators;
+using Dhazel.Utilities.Mvvm.Validators;
 
 # pragma warning disable CA1707 // warning for underscores in method names
 
-namespace Dasl.Utilities.Mvvm.Tests.Validators;
+namespace Dhazel.Utilities.Mvvm.Tests.Validators;
 
 
 /// <summary>

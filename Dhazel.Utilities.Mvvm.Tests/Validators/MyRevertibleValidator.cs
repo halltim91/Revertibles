@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Dasl.Utilities.Mvvm.Validators;
-using Dasl.Utilities.Revertibles;
+using Dhazel.Utilities.Mvvm.Validators;
+using Dhazel.Utilities.Revertibles;
 
 
-namespace Dasl.Utilities.Mvvm.Tests.Validators;
+namespace Dhazel.Utilities.Mvvm.Tests.Validators;
 
 public partial class MyRevertibleValidator : RevertibleValidator
 {

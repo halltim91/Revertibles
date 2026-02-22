@@ -1,7 +1,7 @@
-﻿using Dasl.Utilities.Revertibles;
+﻿using Dhazel.Utilities.Revertibles;
 
 
-namespace Dasl.Utilities.Revertibles.Tests;
+namespace Dhazel.Utilities.Revertibles.Tests;
 
 public class SimpleDecoratedRevertible : IRevertible
 {

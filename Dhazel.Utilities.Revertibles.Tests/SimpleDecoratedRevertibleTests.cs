@@ -1,7 +1,7 @@
 
 # pragma warning disable CA1707 // warning for underscores in method names
 
-namespace Dasl.Utilities.Revertibles.Tests;
+namespace Dhazel.Utilities.Revertibles.Tests;
 
 
 /// <summary>

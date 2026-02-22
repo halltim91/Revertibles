@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="Dasl.Utilities.Mvvm.Tests/Dasl.Utilities.Mvvm.Tests.csproj" />
-  <Project Path="Dasl.Utilities.Mvvm/Dasl.Utilities.Mvvm.csproj" />
-  <Project Path="Dasl.Utilities.Revertibles.Tests/Dasl.Utilities.Revertibles.Tests.csproj" />
-  <Project Path="Dasl.Utilities.Revertibles/Dasl.Utilities.Revertibles.csproj" />
-</Solution>
