@@ -5,8 +5,9 @@
     "postCreateCommand": "echo 'cd ${workspaceFolder}' >> ~/.bashrc",
     "updateRemoteUserUID": false,
     "features": {
-        "ghcr.io/devcontainers-extra/features/neovim-homebrew:1": {},
-        "ghcr.io/devcontainers-extra/features/ripgrep:1": {}
+        "ghcr.io/devcontainers-extra/features/neovim-homebrew": {},
+        "ghcr.io/devcontainers-extra/features/ripgrep": {},
+        "ghcr.io/devcontainers-extra/features/opencode": {}
     },
     "forwardPorts": [],
     "portsAttributes": {
