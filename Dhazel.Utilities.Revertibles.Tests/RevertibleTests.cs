@@ -15,7 +15,7 @@ public class RevertibleTests : IDisposable
     [Fact]
     public async Task HasChanged_GivenDisabledChangeTracking_ShouldThrow()
     {
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = 1
         };
@@ -27,7 +27,7 @@ public class RevertibleTests : IDisposable
     [Fact]
     public async Task Revert_GivenDisabledChangeTracking_ShouldThrow()
     {
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = 1
         };
@@ -39,7 +39,7 @@ public class RevertibleTests : IDisposable
     [Fact]
     public async Task HasChanged_GivenEnabledChangeTracking_ShouldSucceed()
     {
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = 1
         };
@@ -52,7 +52,7 @@ public class RevertibleTests : IDisposable
     [Fact]
     public async Task HasChanged_GivenAnUnChangedProperty_ShouldReturnFalse()
     {
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = 1
         };
@@ -64,7 +64,7 @@ public class RevertibleTests : IDisposable
     [Fact]
     public async Task HasChanged_GivenAChangedProperty_ShouldReturnTrue()
     {
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = 1
         };
@@ -78,7 +78,7 @@ public class RevertibleTests : IDisposable
     [Fact]
     public async Task HasChanged_GivenNoChanges_ShouldReturnFalse()
     {
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = 1
         };
@@ -90,7 +90,7 @@ public class RevertibleTests : IDisposable
     [Fact]
     public async Task HasChanged_GivenChanges_ShouldReturnTrue()
     {
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = 1,
             MyString = "123",
@@ -107,7 +107,7 @@ public class RevertibleTests : IDisposable
     public async Task Revert_GivenAChangedProperty_ShouldResetIt()
     {
         var initialId = 12345;
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = initialId,
         };
@@ -125,7 +125,7 @@ public class RevertibleTests : IDisposable
     {
         var initialId = 12345;
         var initialMyString = "123";
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = initialId,
             MyString = initialMyString,
@@ -145,7 +145,7 @@ public class RevertibleTests : IDisposable
     public async Task AcceptChanges_GivenAChangedProperty_ShouldClearItsChangeFlag()
     {
         var initialId = 12345;
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = initialId,
         };
@@ -165,7 +165,7 @@ public class RevertibleTests : IDisposable
     {
         var initialId = 12345;
         var initialMyString = "123";
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             Id = initialId,
             MyString = initialMyString,
@@ -188,7 +188,7 @@ public class RevertibleTests : IDisposable
     [Fact]
     public async Task HasChanged_GivenABooleanChangedToTrue_ShouldReturnTrue()
     {
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             MyBool = false
         };
@@ -202,7 +202,7 @@ public class RevertibleTests : IDisposable
     [Fact]
     public async Task HasChanged_GivenABooleanChangedToFalse_ShouldReturnTrue()
     {
-        var observable = new MyObject()
+        var observable = new MyRevertibleObject()
         {
             MyBool = true
         };

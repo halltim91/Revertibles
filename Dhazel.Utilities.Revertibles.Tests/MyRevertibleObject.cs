@@ -3,7 +3,7 @@
 
 namespace Dhazel.Utilities.Revertibles.Tests;
 
-public class MyObject
+public class MyRevertibleObject
 {
     [Revertible]
     public int Id { get; set; }
