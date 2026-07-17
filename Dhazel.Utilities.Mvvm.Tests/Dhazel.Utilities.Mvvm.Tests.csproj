@@ -17,10 +17,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dhazel.Utilities.Mvvm\Dhazel.Utilities.Mvvm.csproj" />
+    <ProjectReference Include="..\Dhazel.Utilities.TestHelpers\Dhazel.Utilities.TestHelpers.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
+    <Using Include="Dhazel.Utilities.TestHelpers" />
   </ItemGroup>
+
 
 </Project>

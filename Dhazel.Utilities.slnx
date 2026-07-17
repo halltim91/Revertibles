@@ -3,4 +3,6 @@
   <Project Path="Dhazel.Utilities.Mvvm/Dhazel.Utilities.Mvvm.csproj" />
   <Project Path="Dhazel.Utilities.Revertibles.Tests/Dhazel.Utilities.Revertibles.Tests.csproj" />
   <Project Path="Dhazel.Utilities.Revertibles/Dhazel.Utilities.Revertibles.csproj" />
+  <Project Path="Dhazel.Utilities.TestHelpers/Dhazel.Utilities.TestHelpers.csproj" />
 </Solution>
+
