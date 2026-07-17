@@ -2,12 +2,14 @@
     "image":"mcr.microsoft.com/devcontainers/dotnet:10.0",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/${localWorkspaceFolderBasename},type=bind,consistency=cached,relabel=private",
     "workspaceFolder": "/workspace/${localWorkspaceFolderBasename}",
-    "postCreateCommand": "echo 'cd ${workspaceFolder}' >> ~/.bashrc",
     "updateRemoteUserUID": false,
     "features": {
-        "ghcr.io/devcontainers-extra/features/neovim-homebrew": {},
+        "ghcr.io/devcontainers-extra/features/neovim-homebrew": {
+            "cashbuster": "0.12.4"
+        },
         "ghcr.io/devcontainers-extra/features/ripgrep": {},
-        "ghcr.io/devcontainers-extra/features/opencode": {}
+        "ghcr.io/devcontainers-extra/features/opencode": {},
+        "ghcr.io/devcontainer-community/devcontainer-features/tree-sitter:1": {}
     },
     "forwardPorts": [],
     "portsAttributes": {
@@ -16,8 +18,9 @@
         "--network", "host",
         "--userns=keep-id"
     ],
+    "initializeCommand": "bash scripts/sync-nvim-config.sh",
+    "postCreateCommand": "bash scripts/install-nvim-config.sh",
     "mounts": [
-        "source=.config/nvim,target=/home/vscode/.config/nvim,type=bind,consistency=cached,relabel=private",
         "source=${localWorkspaceFolder}/.config/nvim-data,target=/home/vscode/.config/nvim-data,type=bind,consistency=cached,relabel=private",
         "source=.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached,relabel=private"
     ],
