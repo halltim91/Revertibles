@@ -13,7 +13,7 @@ public partial class MyRevertibleValidator : RevertibleValidator
 
     [ObservableProperty]
     [property: Revertible]
-    private string _myString;
+    private string? _myString;
 
     [ObservableProperty]
     [property: Revertible]

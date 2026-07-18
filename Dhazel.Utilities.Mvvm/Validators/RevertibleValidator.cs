@@ -6,7 +6,7 @@ namespace Dhazel.Utilities.Mvvm.Validators;
 
 public partial class RevertibleValidator : ObservableValidator, IRevertible
 {
-    private Revertible _revertible;
+    private IRevertible _revertible;
 
     public RevertibleValidator()
     {
@@ -26,5 +26,10 @@ public partial class RevertibleValidator : ObservableValidator, IRevertible
     public void Revert(string? propertyName = null)
     {
         _revertible.Revert(propertyName);
+    }
+
+    public IRevertible WithProperties(List<string> propertyNames)
+    {
+        return _revertible.WithProperties(propertyNames);
     }
 }

@@ -13,30 +13,6 @@ public class RevertibleTests : IDisposable
     }
 
     [Fact]
-    public async Task HasChanged_GivenDisabledChangeTracking_ShouldThrow()
-    {
-        var observable = new MyRevertibleObject()
-        {
-            Id = 1
-        };
-        var revertible = new Revertible(observable);
-
-        Assert.Throws<RevertibleException>(() => revertible.HasChanged("Id"));
-    }
-
-    [Fact]
-    public async Task Revert_GivenDisabledChangeTracking_ShouldThrow()
-    {
-        var observable = new MyRevertibleObject()
-        {
-            Id = 1
-        };
-        var revertible = new Revertible(observable);
-
-        Assert.Throws<RevertibleException>(() => revertible.Revert("Id"));
-    }
-
-    [Fact]
     public async Task HasChanged_GivenEnabledChangeTracking_ShouldSucceed()
     {
         var observable = new MyRevertibleObject()
@@ -44,7 +20,6 @@ public class RevertibleTests : IDisposable
             Id = 1
         };
         var revertible = new Revertible(observable);
-        revertible.EnableChangeTracking();
 
         Assert.False(revertible.HasChanged("Id"));
     }

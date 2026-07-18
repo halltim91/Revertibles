@@ -6,47 +6,57 @@ namespace Dhazel.Utilities.Revertibles;
 /// <summary>
 /// Can track any given object and detect changes to that object's properties.
 /// </summary>
-/// <param name="trackedObject"></param>
-public class Revertible(Object trackedObject) : IRevertible
+public class Revertible : IRevertible
 {
     private readonly Dictionary<string, object> _pristineValues = [];
     private List<string> _propertiesToTrack = [];
-    private bool _isChangeTrackingActive;
 
-    private Object TrackedObject { get; set; } = trackedObject;
+    /// <param name="trackedObject"></param>
+    /// <param name="propertiesToTrack"></param>
+    public Revertible(Object trackedObject)
+    {
+        TrackedObject = trackedObject;
 
-    public static Revertible Track(Object myObject)
+        _propertiesToTrack = GetRevertibleProperties(TrackedObject);
+
+        if (_propertiesToTrack.Any())
+        {
+            AcceptChanges();
+        }
+    }
+
+    private Object TrackedObject { get; set; }
+
+    public static IRevertible Track(Object myObject)
     {
         var revertible = new Revertible(myObject);
-        revertible.EnableChangeTracking();
 
         return revertible;
     }
 
-    /// <summary>
-    /// Enable change tracking
-    /// </summary>
-    public void EnableChangeTracking()
+    public IRevertible WithProperties(List<string> propertyNames)
     {
-        _isChangeTrackingActive = true;
-        _propertiesToTrack = GetPropertiesToTrack(TrackedObject);
-        AcceptChanges();
+        _propertiesToTrack = propertyNames;
+
+        if (_propertiesToTrack.Any())
+        {
+            AcceptChanges();
+        }
+
+        return this;
     }
 
     /// <summary>
     /// Gets the properties that should be tracked for changes.
     /// </summary>
     /// <exception cref="RevertibleException"></exception>
-    protected virtual List<string> GetPropertiesToTrack(Object trackedObject)
+    protected static List<string> GetRevertibleProperties(Object trackedObject)
     {
         var propertiesToTrack = trackedObject.GetType().GetProperties()
             .Where(pi => pi.CanWrite)
             .Where(prop => Attribute.IsDefined(prop, typeof(RevertibleAttribute)))
             .Select(pi => pi.Name)
             .ToList();
-
-        if (!propertiesToTrack.Any())
-            throw new RevertibleException("There are no properties marked to be tracked. Please add `[Revertible]` attributes to the class properties that you want to track.");
 
         return propertiesToTrack;
     }
@@ -144,8 +154,8 @@ public class Revertible(Object trackedObject) : IRevertible
     /// <exception cref="RevertibleException"></exception>
     protected void GuardChangeTracking()
     {
-        if (!_isChangeTrackingActive)
-            throw new RevertibleException("Change tracking must be enabled.");
+        if (!_propertiesToTrack.Any())
+            throw new RevertibleException("There are no properties marked to be tracked.");
     }
 
     protected PropertyInfo GetPropertyInfo(string? propertyName)
@@ -158,13 +168,5 @@ public class Revertible(Object trackedObject) : IRevertible
         }
 
         return propertyInfo;
-    }
-
-    public IRevertible WithProperties(List<string> propertyNames)
-    {
-        _isChangeTrackingActive = true;
-        _propertiesToTrack = propertyNames;
-        AcceptChanges();
-        return this;
     }
 }

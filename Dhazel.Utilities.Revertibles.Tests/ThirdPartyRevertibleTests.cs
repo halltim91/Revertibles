@@ -35,41 +35,29 @@ public class ThirdPartyRevertibleTests(ITestOutputHelper output) : IDisposable
         Assert.False(revertible.HasChanged("Id"));
     }
 
-    [Fact(Skip="todo")]
-    public async Task HasChanged_GivenAnUnChangedProperty_ShouldReturnFalse()
-    {
-        var observable = new MyRevertibleObject()
-        {
-            Id = 1
-        };
-        var revertible = Revertible.Track(observable);
-
-        Assert.False(revertible.HasChanged("Id"));
-    }
-
-    [Fact(Skip="todo")]
+    [Fact]
     public async Task HasChanged_GivenAChangedProperty_ShouldReturnTrue()
     {
         var observable = new MyRevertibleObject()
         {
             Id = 1
         };
-        var revertible = Revertible.Track(observable);
+        var revertible = Revertible.Track(observable).WithProperties(["Id"]);
 
         observable.Id = 2;
 
         Assert.True(revertible.HasChanged("Id"));
     }
 
-    [Fact(Skip="todo")]
+    [Fact]
     public async Task HasChanged_GivenChanges_ShouldReturnTrue()
     {
-        var observable = new MyRevertibleObject()
+        var observable = new MySimpleObject()
         {
             Id = 1,
             MyString = "123",
         };
-        var revertible = Revertible.Track(observable);
+        var revertible = Revertible.Track(observable).WithProperties(["Id", "MyString"]);
 
         observable.Id = 2;
         observable.MyString = "321";
@@ -77,15 +65,15 @@ public class ThirdPartyRevertibleTests(ITestOutputHelper output) : IDisposable
         Assert.True(revertible.HasChanged());
     }
 
-    [Fact(Skip="todo")]
+    [Fact]
     public async Task Revert_GivenAChangedProperty_ShouldResetIt()
     {
         var initialId = 12345;
-        var observable = new MyRevertibleObject()
+        var observable = new MySimpleObject()
         {
             Id = initialId,
         };
-        var revertible = Revertible.Track(observable);
+        var revertible = Revertible.Track(observable).WithProperties(["Id"]);
 
         observable.Id = 54321;
 
@@ -94,17 +82,17 @@ public class ThirdPartyRevertibleTests(ITestOutputHelper output) : IDisposable
         Assert.Equal(initialId, observable.Id);
     }
 
-    [Fact(Skip="todo")]
+    [Fact]
     public async Task Revert_GivenChanges_ShouldResetThemAll()
     {
         var initialId = 12345;
         var initialMyString = "123";
-        var observable = new MyRevertibleObject()
+        var observable = new MySimpleObject()
         {
             Id = initialId,
             MyString = initialMyString,
         };
-        var revertible = Revertible.Track(observable);
+        var revertible = Revertible.Track(observable).WithProperties(["Id", "MyString"]);
 
         observable.Id = 54321;
         observable.MyString = "321";
@@ -115,15 +103,15 @@ public class ThirdPartyRevertibleTests(ITestOutputHelper output) : IDisposable
         Assert.Equal(initialMyString, observable.MyString);
     }
 
-    [Fact(Skip="todo")]
+    [Fact]
     public async Task AcceptChanges_GivenAChangedProperty_ShouldClearItsChangeFlag()
     {
         var initialId = 12345;
-        var observable = new MyRevertibleObject()
+        var observable = new MySimpleObject()
         {
             Id = initialId,
         };
-        var revertible = Revertible.Track(observable);
+        var revertible = Revertible.Track(observable).WithProperties(["Id"]);
 
         var newId = 54321;
         observable.Id = newId;
@@ -134,17 +122,17 @@ public class ThirdPartyRevertibleTests(ITestOutputHelper output) : IDisposable
         Assert.False(revertible.HasChanged("Id"));
     }
 
-    [Fact(Skip="todo")]
+    [Fact]
     public async Task AcceptChanges_GivenChanges_ShouldClearAllChangeFlags()
     {
         var initialId = 12345;
         var initialMyString = "123";
-        var observable = new MyRevertibleObject()
+        var observable = new MySimpleObject()
         {
             Id = initialId,
             MyString = initialMyString,
         };
-        var revertible = Revertible.Track(observable);
+        var revertible = Revertible.Track(observable).WithProperties(["Id", "MyString"]);
 
         var newId = 54321;
         var newMyString = "321";
@@ -159,28 +147,28 @@ public class ThirdPartyRevertibleTests(ITestOutputHelper output) : IDisposable
         Assert.False(revertible.HasChanged());
     }
 
-    [Fact(Skip="todo")]
+    [Fact]
     public async Task HasChanged_GivenABooleanChangedToTrue_ShouldReturnTrue()
     {
-        var observable = new MyRevertibleObject()
+        var observable = new MySimpleObject()
         {
             MyBool = false
         };
-        var revertible = Revertible.Track(observable);
+        var revertible = Revertible.Track(observable).WithProperties(["MyBool"]);
 
         observable.MyBool = true;
 
         Assert.True(revertible.HasChanged("MyBool"));
     }
 
-    [Fact(Skip="todo")]
+    [Fact]
     public async Task HasChanged_GivenABooleanChangedToFalse_ShouldReturnTrue()
     {
-        var observable = new MyRevertibleObject()
+        var observable = new MySimpleObject()
         {
             MyBool = true
         };
-        var revertible = Revertible.Track(observable);
+        var revertible = Revertible.Track(observable).WithProperties(["MyBool"]);
 
         observable.MyBool = false;
 

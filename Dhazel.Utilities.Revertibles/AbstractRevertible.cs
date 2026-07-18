@@ -5,7 +5,7 @@ namespace Dhazel.Utilities.Revertibles;
 
 public abstract class AbstractRevertible : IRevertible
 {
-    private Revertible _revertible;
+    private IRevertible _revertible;
 
     public AbstractRevertible()
     {
@@ -29,6 +29,6 @@ public abstract class AbstractRevertible : IRevertible
 
     public IRevertible WithProperties(List<string> propertyNames)
     {
-        throw new NotImplementedException("TODO");
+        return _revertible.WithProperties(propertyNames);
     }
 }
