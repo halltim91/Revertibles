@@ -159,4 +159,12 @@ public class Revertible(Object trackedObject) : IRevertible
 
         return propertyInfo;
     }
+
+    public IRevertible WithProperties(List<string> propertyNames)
+    {
+        _isChangeTrackingActive = true;
+        _propertiesToTrack = propertyNames;
+        AcceptChanges();
+        return this;
+    }
 }

@@ -26,4 +26,9 @@ public abstract class AbstractRevertible : IRevertible
     {
         _revertible.Revert(propertyName);
     }
+
+    public IRevertible WithProperties(List<string> propertyNames)
+    {
+        throw new NotImplementedException("TODO");
+    }
 }
