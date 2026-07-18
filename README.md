@@ -4,13 +4,13 @@
 
 ## Projects
 
-| Project | Description |
-|---------|-------------|
-| `Dhazel.Revertibles` | Core change-tracking API |
-| `Dhazel.Revertibles.Mvvm` | MVVM integration (`RevertibleValidator` + CommunityToolkit.Mvvm) |
-| `Dhazel.TestHelpers` | Shared test helpers |
-| `Dhazel.Revertibles.Tests` | Unit tests for Revertibles |
-| `Dhazel.Revertibles.Mvvm.Tests` | Unit tests for Mvvm |
+| Project                         | Description                                                      |
+| ---------                       | -------------                                                    |
+| `Dhazel.Revertibles`            | Core change-tracking API                                         |
+| `Dhazel.Revertibles.Mvvm`       | MVVM integration (`RevertibleValidator` + CommunityToolkit.Mvvm) |
+| `Dhazel.TestHelpers`            | Shared test helpers                                              |
+| `Dhazel.Revertibles.Tests`      | Unit tests for Revertibles                                       |
+| `Dhazel.Revertibles.Mvvm.Tests` | Unit tests for Mvvm                                              |
 
 ## Requirements
 
@@ -20,11 +20,11 @@
 
 All patterns share the same API:
 
-| Method | Description |
-|--------|-------------|
-| `HasChanged()` / `HasChanged("Prop")` | Whether any (or a specific) tracked property differs from its pristine value |
-| `Revert()` / `Revert("Prop")` | Restore all (or a specific) tracked properties to pristine values |
-| `AcceptChanges()` / `AcceptChanges("Prop")` | Snapshot current values as the new pristine baseline |
+| Method                                      | Description                                                                  |
+| --------                                    | -------------                                                                |
+| `HasChanged()` / `HasChanged("Prop")`       | Whether any (or a specific) tracked property differs from its pristine value |
+| `Revert()` / `Revert("Prop")`               | Restore all (or a specific) tracked properties to pristine values            |
+| `AcceptChanges()` / `AcceptChanges("Prop")` | Snapshot current values as the new pristine baseline                         |
 
 ### 1. Attribute + `Revertible.Track`
 
