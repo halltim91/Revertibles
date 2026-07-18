@@ -153,7 +153,7 @@ dotnet test Dhazel.Revertibles.slnx
 
 Versions come from git tags via [MinVer](https://github.com/adamralph/minver) (`v1.0.0` → package `1.0.0`).
 
-1. Ensure `NUGET_API_KEY` is set as a GitHub Actions secret (nuget.org API key).
+1. Ensure `NUGET_USER` is set as a GitHub Actions secret (nuget.org API key).
 2. Push an annotated tag:
 
 ```bash
