@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Description>Property change tracking for .NET: detect dirty state, revert to pristine values, and accept changes as the new baseline.</Description>
+    <PackageId>Dhazel.Revertibles</PackageId>
+    <PackageTags>revertible;change-tracking;dirty;undo</PackageTags>
   </PropertyGroup>
 
 </Project>

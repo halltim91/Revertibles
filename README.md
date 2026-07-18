@@ -16,6 +16,13 @@
 
 - .NET 10
 
+## Install
+
+```bash
+dotnet add package Dhazel.Revertibles
+dotnet add package Dhazel.Revertibles.Mvvm
+```
+
 ## Usage
 
 All patterns share the same API:
@@ -142,6 +149,20 @@ dotnet build Dhazel.Revertibles.slnx
 dotnet test Dhazel.Revertibles.slnx
 ```
 
+## Releasing
+
+Versions come from git tags via [MinVer](https://github.com/adamralph/minver) (`v1.0.0` → package `1.0.0`).
+
+1. Ensure `NUGET_API_KEY` is set as a GitHub Actions secret (nuget.org API key).
+2. Push an annotated tag:
+
+```bash
+git tag -a v1.0.0 -m "v1.0.0"
+git push origin v1.0.0
+```
+
+The Release workflow runs tests, packs, and publishes to nuget.org.
+
 ## Solution layout
 
 ```
@@ -151,7 +172,7 @@ root/
 ├── Dhazel.TestHelpers/          # Test utilities
 ├── Dhazel.Revertibles.Tests/
 ├── Dhazel.Revertibles.Mvvm.Tests/
-└── Dhazel.slnx
+└── Dhazel.Revertibles.slnx
 ```
 
 ## License
