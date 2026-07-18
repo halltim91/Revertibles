@@ -1,0 +1,159 @@
+# Dhazel.Utilities
+
+.NET utilities for property change tracking: detect dirty state, revert to pristine values, and accept changes as the new baseline.
+
+## Projects
+
+| Project | Description |
+|---------|-------------|
+| `Dhazel.Utilities.Revertibles` | Core change-tracking API |
+| `Dhazel.Utilities.Mvvm` | MVVM integration (`RevertibleValidator` + CommunityToolkit.Mvvm) |
+| `Dhazel.Utilities.TestHelpers` | Shared test helpers |
+| `Dhazel.Utilities.Revertibles.Tests` | Unit tests for Revertibles |
+| `Dhazel.Utilities.Mvvm.Tests` | Unit tests for Mvvm |
+
+## Requirements
+
+- .NET 10
+
+## Usage
+
+All patterns share the same API:
+
+| Method | Description |
+|--------|-------------|
+| `HasChanged()` / `HasChanged("Prop")` | Whether any (or a specific) tracked property differs from its pristine value |
+| `Revert()` / `Revert("Prop")` | Restore all (or a specific) tracked properties to pristine values |
+| `AcceptChanges()` / `AcceptChanges("Prop")` | Snapshot current values as the new pristine baseline |
+
+### 1. Attribute + `Revertible.Track`
+
+Decorate properties with `[Revertible]`, then track any instance:
+
+```csharp
+using Dhazel.Utilities.Revertibles;
+
+public class Person
+{
+    [Revertible]
+    public int Id { get; set; }
+
+    [Revertible]
+    public string? Name { get; set; }
+}
+
+var person = new Person { Id = 1, Name = "Ada" };
+var revertible = Revertible.Track(person);
+
+person.Name = "Grace";
+revertible.HasChanged();           // true
+revertible.HasChanged("Name");     // true
+
+revertible.Revert("Name");
+// person.Name == "Ada"
+
+person.Name = "Grace";
+revertible.AcceptChanges();
+// "Grace" is now the pristine value
+```
+
+### 2. Inherit `AbstractRevertible`
+
+When the type itself should be revertible:
+
+```csharp
+using Dhazel.Utilities.Revertibles;
+
+public class Person : AbstractRevertible
+{
+    [Revertible]
+    public int Id { get; set; }
+
+    [Revertible]
+    public string? Name { get; set; }
+}
+
+var person = new Person { Id = 1, Name = "Ada" };
+
+person.Name = "Grace";
+person.HasChanged();   // true
+person.Revert();       // Name restored to "Ada"
+```
+
+### 3. Third-party / undecorated types
+
+Track objects you cannot annotate (or choose not to) with `WithProperties`:
+
+```csharp
+using Dhazel.Utilities.Revertibles;
+
+// No [Revertible] attributes on this type
+public class ExternalDto
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+}
+
+var dto = new ExternalDto { Id = 1, Name = "Ada" };
+var revertible = Revertible.Track(dto)
+    .WithProperties(["Id", "Name"]);
+
+dto.Name = "Grace";
+revertible.HasChanged("Name");  // true
+revertible.Revert();            // restored
+```
+
+### 4. MVVM with `RevertibleValidator`
+
+Combine change tracking with [CommunityToolkit.Mvvm](https://learn.microsoft.com/dotnet/communitytoolkit/mvvm/) source generators:
+
+```csharp
+using CommunityToolkit.Mvvm.ComponentModel;
+using Dhazel.Utilities.Mvvm.Validators;
+using Dhazel.Utilities.Revertibles;
+
+public partial class PersonViewModel : RevertibleValidator
+{
+    [ObservableProperty]
+    [property: Revertible]
+    private int _id;
+
+    [ObservableProperty]
+    [property: Revertible]
+    private string? _name;
+}
+
+var vm = new PersonViewModel { Id = 1, Name = "Ada" };
+
+vm.Name = "Grace";
+vm.HasChanged();  // true
+vm.Revert();      // Name restored to "Ada"
+```
+
+Reference both packages/projects as needed:
+
+- `Dhazel.Utilities.Revertibles` — core types
+- `Dhazel.Utilities.Mvvm` — `RevertibleValidator` (depends on Revertibles and CommunityToolkit.Mvvm)
+
+## Build & test
+
+```bash
+dotnet build Dhazel.Utilities.slnx
+dotnet test Dhazel.Utilities.slnx
+```
+
+## Solution layout
+
+```
+Dhazel.Utilities/
+├── Dhazel.Utilities.Revertibles/     # Core library
+├── Dhazel.Utilities.Mvvm/            # MVVM helpers
+├── Dhazel.Utilities.TestHelpers/     # Test utilities
+├── Dhazel.Utilities.Revertibles.Tests/
+├── Dhazel.Utilities.Mvvm.Tests/
+└── Dhazel.Utilities.slnx
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
