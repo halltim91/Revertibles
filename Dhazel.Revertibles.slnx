@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Dhazel.Revertibles.Mvvm.Tests/Dhazel.Revertibles.Mvvm.Tests.csproj" />
+  <Project Path="Dhazel.Revertibles.Mvvm/Dhazel.Revertibles.Mvvm.csproj" />
+  <Project Path="Dhazel.Revertibles.Tests/Dhazel.Revertibles.Tests.csproj" />
+  <Project Path="Dhazel.Revertibles/Dhazel.Revertibles.csproj" />
+  <Project Path="Dhazel.TestHelpers/Dhazel.TestHelpers.csproj" />
+</Solution>
+

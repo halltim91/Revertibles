@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dhazel.Utilities.Revertibles\Dhazel.Utilities.Revertibles.csproj" />
+    <ProjectReference Include="..\Dhazel.Revertibles\Dhazel.Revertibles.csproj" />
   </ItemGroup>
 
 </Project>

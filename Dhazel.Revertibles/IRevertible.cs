@@ -1,6 +1,6 @@
 ﻿
 
-namespace Dhazel.Utilities.Revertibles;
+namespace Dhazel.Revertibles;
 
 public interface IRevertible
 {

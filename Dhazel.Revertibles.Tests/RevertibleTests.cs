@@ -1,9 +1,9 @@
 
-using Dhazel.Utilities.Revertibles;
+using Dhazel.Revertibles;
 
 # pragma warning disable CA1707 // warning for underscores in method names
 
-namespace Dhazel.Utilities.Revertibles.Tests;
+namespace Dhazel.Revertibles.Tests;
 
 
 public class RevertibleTests : IDisposable

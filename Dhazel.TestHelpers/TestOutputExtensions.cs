@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Xunit.Abstractions;
 
-namespace Dhazel.Utilities.TestHelpers;
+namespace Dhazel.TestHelpers;
 
 public static class TestOutputExtensions
 {

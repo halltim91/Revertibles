@@ -1,14 +1,13 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Dhazel.Utilities.Revertibles;
+﻿using Dhazel.Revertibles;
 
 
-namespace Dhazel.Utilities.Revertibles.Mvvm.ObservableValidators;
+namespace Dhazel.Revertibles;
 
-public partial class RevertibleValidator : ObservableValidator, IRevertible
+public abstract class AbstractRevertible : IRevertible
 {
     private IRevertible _revertible;
 
-    public RevertibleValidator()
+    public AbstractRevertible()
     {
         _revertible = Revertible.Track(this);
     }

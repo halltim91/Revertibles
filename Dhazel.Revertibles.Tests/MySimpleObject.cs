@@ -1,7 +1,7 @@
-﻿using Dhazel.Utilities.Revertibles;
+﻿using Dhazel.Revertibles;
 
 
-namespace Dhazel.Utilities.Revertibles.Tests;
+namespace Dhazel.Revertibles.Tests;
 
 public class MySimpleObject
 {

@@ -1,14 +1,14 @@
 ﻿
 using System.Reflection;
 
-namespace Dhazel.Utilities.Revertibles;
+namespace Dhazel.Revertibles;
 
 /// <summary>
 /// Can track any given object and detect changes to that object's properties.
 /// </summary>
 public class Revertible : IRevertible
 {
-    private readonly Dictionary<string, object> _pristineValues = [];
+    private readonly Dictionary<string, object?> _pristineValues = [];
     private List<string> _propertiesToTrack = [];
 
     /// <param name="trackedObject"></param>
@@ -123,13 +123,13 @@ public class Revertible : IRevertible
         }
     }
 
-    protected object GetValue(string propertyName)
+    protected object? GetValue(string propertyName)
     {
         GuardPropertyName(propertyName);
         return GetPropertyInfo(propertyName).GetValue(TrackedObject);
     }
 
-    protected void SetValue(string propertyName, object pristineValue)
+    protected void SetValue(string propertyName, object? pristineValue)
     {
         GuardPropertyName(propertyName);
         GetPropertyInfo(propertyName).SetValue(TrackedObject, pristineValue);
@@ -158,7 +158,7 @@ public class Revertible : IRevertible
             throw new RevertibleException("There are no properties marked to be tracked.");
     }
 
-    protected PropertyInfo GetPropertyInfo(string? propertyName)
+    protected PropertyInfo GetPropertyInfo(string propertyName)
     {
         var propertyInfo = TrackedObject.GetType().GetProperty(propertyName);
 

@@ -1,4 +1,4 @@
-# Dhazel.Utilities
+# Dhazel.Revertibles
 
 .NET utilities for property change tracking: detect dirty state, revert to pristine values, and accept changes as the new baseline.
 
@@ -6,11 +6,11 @@
 
 | Project | Description |
 |---------|-------------|
-| `Dhazel.Utilities.Revertibles` | Core change-tracking API |
-| `Dhazel.Utilities.Mvvm` | MVVM integration (`RevertibleValidator` + CommunityToolkit.Mvvm) |
-| `Dhazel.Utilities.TestHelpers` | Shared test helpers |
-| `Dhazel.Utilities.Revertibles.Tests` | Unit tests for Revertibles |
-| `Dhazel.Utilities.Mvvm.Tests` | Unit tests for Mvvm |
+| `Dhazel.Revertibles` | Core change-tracking API |
+| `Dhazel.Revertibles.Mvvm` | MVVM integration (`RevertibleValidator` + CommunityToolkit.Mvvm) |
+| `Dhazel.TestHelpers` | Shared test helpers |
+| `Dhazel.Revertibles.Tests` | Unit tests for Revertibles |
+| `Dhazel.Revertibles.Mvvm.Tests` | Unit tests for Mvvm |
 
 ## Requirements
 
@@ -31,7 +31,7 @@ All patterns share the same API:
 Decorate properties with `[Revertible]`, then track any instance:
 
 ```csharp
-using Dhazel.Utilities.Revertibles;
+using Dhazel.Revertibles;
 
 public class Person
 {
@@ -62,7 +62,7 @@ revertible.AcceptChanges();
 When the type itself should be revertible:
 
 ```csharp
-using Dhazel.Utilities.Revertibles;
+using Dhazel.Revertibles;
 
 public class Person : AbstractRevertible
 {
@@ -85,7 +85,7 @@ person.Revert();       // Name restored to "Ada"
 Track objects you cannot annotate (or choose not to) with `WithProperties`:
 
 ```csharp
-using Dhazel.Utilities.Revertibles;
+using Dhazel.Revertibles;
 
 // No [Revertible] attributes on this type
 public class ExternalDto
@@ -109,8 +109,8 @@ Combine change tracking with [CommunityToolkit.Mvvm](https://learn.microsoft.com
 
 ```csharp
 using CommunityToolkit.Mvvm.ComponentModel;
-using Dhazel.Utilities.Mvvm.Validators;
-using Dhazel.Utilities.Revertibles;
+using Dhazel.Revertibles.Mvvm.ObservableValidators;
+using Dhazel.Revertibles;
 
 public partial class PersonViewModel : RevertibleValidator
 {
@@ -132,26 +132,26 @@ vm.Revert();      // Name restored to "Ada"
 
 Reference both packages/projects as needed:
 
-- `Dhazel.Utilities.Revertibles` — core types
-- `Dhazel.Utilities.Mvvm` — `RevertibleValidator` (depends on Revertibles and CommunityToolkit.Mvvm)
+- `Dhazel.Revertibles` — core types
+- `Dhazel.Revertibles.Mvvm` — `RevertibleValidator` (depends on Revertibles and CommunityToolkit.Mvvm)
 
 ## Build & test
 
 ```bash
-dotnet build Dhazel.Utilities.slnx
-dotnet test Dhazel.Utilities.slnx
+dotnet build Dhazel.Revertibles.slnx
+dotnet test Dhazel.Revertibles.slnx
 ```
 
 ## Solution layout
 
 ```
-Dhazel.Utilities/
-├── Dhazel.Utilities.Revertibles/     # Core library
-├── Dhazel.Utilities.Mvvm/            # MVVM helpers
-├── Dhazel.Utilities.TestHelpers/     # Test utilities
-├── Dhazel.Utilities.Revertibles.Tests/
-├── Dhazel.Utilities.Mvvm.Tests/
-└── Dhazel.Utilities.slnx
+root/
+├── Dhazel.Revertibles/          # Core library
+├── Dhazel.Revertibles.Mvvm/     # MVVM helpers
+├── Dhazel.TestHelpers/          # Test utilities
+├── Dhazel.Revertibles.Tests/
+├── Dhazel.Revertibles.Mvvm.Tests/
+└── Dhazel.slnx
 ```
 
 ## License
