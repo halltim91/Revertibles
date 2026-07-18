@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Dhazel.Utilities.Mvvm.Validators;
+using Dhazel.Utilities.Revertibles.Mvvm.ObservableValidators;
 using Dhazel.Utilities.Revertibles;
 
 
-namespace Dhazel.Utilities.Mvvm.Tests.Validators;
+namespace Dhazel.Utilities.Revertibles.Mvvm.Tests.ObservableValidators;
 
 public partial class MyRevertibleValidator : RevertibleValidator
 {

@@ -2,7 +2,7 @@
 using Dhazel.Utilities.Revertibles;
 
 
-namespace Dhazel.Utilities.Mvvm.Validators;
+namespace Dhazel.Utilities.Revertibles.Mvvm.ObservableValidators;
 
 public partial class RevertibleValidator : ObservableValidator, IRevertible
 {

@@ -1,9 +1,9 @@
 
-using Dhazel.Utilities.Mvvm.Validators;
+using Dhazel.Utilities.Revertibles.Mvvm.ObservableValidators;
 
 # pragma warning disable CA1707 // warning for underscores in method names
 
-namespace Dhazel.Utilities.Mvvm.Tests.Validators;
+namespace Dhazel.Utilities.Revertibles.Mvvm.Tests.ObservableValidators;
 
 
 /// <summary>

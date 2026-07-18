@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dhazel.Utilities.Mvvm\Dhazel.Utilities.Mvvm.csproj" />
+    <ProjectReference Include="..\Dhazel.Utilities.Revertibles.Mvvm\Dhazel.Utilities.Revertibles.Mvvm.csproj" />
     <ProjectReference Include="..\Dhazel.Utilities.TestHelpers\Dhazel.Utilities.TestHelpers.csproj" />
   </ItemGroup>
 
