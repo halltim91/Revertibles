@@ -4,13 +4,15 @@
 
 ## Projects
 
-| Project                         | Description                                                      |
-| ---------                       | -------------                                                    |
-| `Dhazel.Revertibles`            | Core change-tracking API                                         |
-| `Dhazel.Revertibles.Mvvm`       | MVVM integration (`RevertibleValidator` + CommunityToolkit.Mvvm) |
-| `Dhazel.TestHelpers`            | Shared test helpers                                              |
-| `Dhazel.Revertibles.Tests`      | Unit tests for Revertibles                                       |
-| `Dhazel.Revertibles.Mvvm.Tests` | Unit tests for Mvvm                                              |
+| Project                               | Description                                                       |
+| ---------                             | -------------                                                     |
+| `Dhazel.Revertibles`                  | Core change-tracking API                                          |
+| `Dhazel.Revertibles.Generators`       | Source generator + analyzers for `[RevertibleObject]`             |
+| `Dhazel.Revertibles.Mvvm`             | MVVM integration (`RevertibleValidator` + CommunityToolkit.Mvvm)  |
+| `Dhazel.TestHelpers`                  | Shared test helpers                                               |
+| `Dhazel.Revertibles.Tests`            | Unit tests for Revertibles                                        |
+| `Dhazel.Revertibles.Generators.Tests` | Unit tests for the generator and analyzers                        |
+| `Dhazel.Revertibles.Mvvm.Tests`       | Unit tests for Mvvm                                               |
 
 ## Requirements
 
@@ -137,6 +139,53 @@ vm.HasChanged();  // true
 vm.Revert();      // Name restored to "Ada"
 ```
 
+### 5. `[RevertibleObject]` — zero-boilerplate codegen
+
+Skip the base class and manual wiring entirely. Decorate any `partial` class with `[RevertibleObject]`, and mark the properties to track with `[Revertible]`. A source generator adds `AcceptChanges`, `HasChanged`, `Revert`, and `WithProperties` directly to your class:
+
+```csharp
+using Dhazel.Revertibles;
+
+[RevertibleObject]
+public partial class Person
+{
+    [Revertible]
+    public int Id { get; set; }
+
+    [Revertible]
+    public string? Name { get; set; }
+}
+
+var person = new Person { Id = 1, Name = "Ada" };
+// AcceptChanges() runs automatically after construction by default
+
+person.Name = "Grace";
+person.HasChanged();   // true
+person.Revert();       // Name restored to "Ada"
+```
+
+The class must be declared `partial` — an analyzer (`REV001`) flags this as a compile error if you forget. A second analyzer (`REV002`) warns if a `[RevertibleObject]` class has no `[Revertible]` properties, since that combination silently does nothing.
+
+#### Deferring the initial snapshot
+
+By default, the generated code snapshots pristine values the first time you call `AcceptChanges`, `HasChanged`, `Revert`, or `WithProperties` — which, left alone, happens automatically right after construction. 
+If your class needs additional setup before its properties are safe to snapshot (e.g. a base class that finishes initializing after your constructor runs), set `AcceptPristineValues = false` and call `AcceptChanges()` yourself once setup is complete:
+
+```csharp
+[RevertibleObject(AcceptPristineValues = false)]
+public partial class PersonViewModel : ObservableValidator
+{
+    [Revertible]
+    public int Id { get; set; }
+
+    public PersonViewModel()
+    {
+        // ... setup that must happen before values are snapshotted ...
+        AcceptChanges();
+    }
+}
+```
+
 Reference both packages/projects as needed:
 
 - `Dhazel.Revertibles` — core types
@@ -167,10 +216,12 @@ The Release workflow runs tests, packs, and publishes to nuget.org.
 
 ```
 root/
-├── Dhazel.Revertibles/          # Core library
-├── Dhazel.Revertibles.Mvvm/     # MVVM helpers
-├── Dhazel.TestHelpers/          # Test utilities
+├── Dhazel.Revertibles/           # Core library
+├── Dhazel.Revertibles/Generators # Roslyn Generators
+├── Dhazel.Revertibles.Mvvm/      # MVVM helpers
+├── Dhazel.TestHelpers/           # Test utilities
 ├── Dhazel.Revertibles.Tests/
+├── Dhazel.Revertibles.Generators.Tests/
 ├── Dhazel.Revertibles.Mvvm.Tests/
 └── Dhazel.Revertibles.slnx
 ```
