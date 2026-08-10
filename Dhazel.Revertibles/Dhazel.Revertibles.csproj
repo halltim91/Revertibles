@@ -7,4 +7,18 @@
     <PackageTags>revertible;change-tracking;dirty;undo</PackageTags>
   </PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\Dhazel.Revertibles.Generators\Dhazel.Revertibles.Generators.csproj"
+		                  OutputItemType="Analyzer"
+		                  ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
+	<!-- Pull the generator's build output into this package under analyzers/dotnet/cs -->
+	<ItemGroup>
+		<None Include="..\Dhazel.Revertibles.Generators\bin\$(Configuration)\netstandard2.0\Dhazel.Revertibles.Generators.dll"
+		      Pack="true"
+		      PackagePath="analyzers/dotnet/cs"
+		      Visible="false" />
+	</ItemGroup>
+
 </Project>

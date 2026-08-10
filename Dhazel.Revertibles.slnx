@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="Dhazel.Revertibles.Generators.Tests/Dhazel.Revertibles.Generators.Tests.csproj" Id="12590b8b-9508-48cc-9588-f2e0b7a65539" />
+  <Project Path="Dhazel.Revertibles.Generators/Dhazel.Revertibles.Generators.csproj" Id="1bbd1469-3e7a-470e-966a-863b678b45e4" />
   <Project Path="Dhazel.Revertibles.Mvvm.Tests/Dhazel.Revertibles.Mvvm.Tests.csproj" />
   <Project Path="Dhazel.Revertibles.Mvvm/Dhazel.Revertibles.Mvvm.csproj" />
   <Project Path="Dhazel.Revertibles.Tests/Dhazel.Revertibles.Tests.csproj" />
