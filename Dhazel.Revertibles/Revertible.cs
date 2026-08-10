@@ -12,14 +12,14 @@ public class Revertible : IRevertible
     private List<string> _propertiesToTrack = [];
 
     /// <param name="trackedObject"></param>
-    /// <param name="propertiesToTrack"></param>
-    public Revertible(Object trackedObject)
+    /// <param name="acceptPristineValue">Tracking won't start until the first time AcceptChanges is called when this is set to false</param>
+    public Revertible(object trackedObject, bool acceptPristineValue = true)
     {
         TrackedObject = trackedObject;
 
         _propertiesToTrack = GetRevertibleProperties(TrackedObject);
 
-        if (_propertiesToTrack.Any())
+        if (acceptPristineValue && _propertiesToTrack.Any())
         {
             AcceptChanges();
         }
