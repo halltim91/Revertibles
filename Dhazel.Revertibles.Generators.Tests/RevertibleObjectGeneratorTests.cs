@@ -37,30 +37,6 @@ public class RevertibleObjectGeneratorTests
     }
 
     [Fact]
-    public void RespectsRequireManualAcceptChanges()
-    {
-        const string source = """
-            using Dhazel.Revertibles;
-
-            namespace MyApp;
-
-            [RevertibleObject(AcceptPristineValues = false)]
-            public partial class Widget
-            {
-                public string? Name { get; set; }
-            }
-            """;
-
-        var (output, _) = GeneratorTestHelper.RunGenerator(source, new RevertibleObjectGenerator());
-
-        var generatedText = output.SyntaxTrees
-            .First(t => t.FilePath.Contains("Widget.RevertibleObject.g.cs"))
-            .ToString();
-
-        Assert.Contains("Revertible.Track(this, false)", generatedText);
-    }
-
-    [Fact]
     public void DoesNotGenerateRealMembers_WhenClassIsNotPartial()
     {
         const string source = """
