@@ -141,7 +141,10 @@ vm.Revert();      // Name restored to "Ada"
 
 ### 5. `[RevertibleObject]` — zero-boilerplate codegen
 
-Skip the base class and manual wiring entirely. Decorate any `partial` class with `[RevertibleObject]`, and mark the properties to track with `[Revertible]`. A source generator adds `AcceptChanges`, `HasChanged`, `Revert`, and `WithProperties` directly to your class:
+Skip the base class and manual wiring entirely. Decorate any `partial` class with `[RevertibleObject]`, and mark the properties to track with `[Revertible]`. 
+A source generator adds `AcceptChanges`, `HasChanged`, `Revert`, and `WithProperties` directly to your class:
+
+*Note: When using this attribute the `Revertible` instance is lazily loaded and change tracking will not begin until `AcceptChanges` is called. This can be done in the revertible objects constructor*
 
 ```csharp
 using Dhazel.Revertibles;
