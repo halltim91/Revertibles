@@ -33,7 +33,7 @@ public class RevertibleObjectGeneratorTests
         Assert.Contains("public void AcceptChanges(string? propertyName = null)", generatedText);
         Assert.Contains("public bool HasChanged(string? propertyName = null)", generatedText);
         Assert.Contains("public void Revert(string? propertyName = null)", generatedText);
-        Assert.Contains("Revertible.Track(this, true)", generatedText);
+        Assert.Contains("Revertible(this, false)", generatedText);
     }
 
     [Fact]
