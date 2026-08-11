@@ -15,8 +15,7 @@ public class RevertibleObjectGenerator : IIncrementalGenerator
         string Namespace,
         string ClassName,
         string FullTypeName,
-        bool IsPartial,
-        bool AcceptPristineChanges);
+        bool IsPartial);
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -39,21 +38,13 @@ public class RevertibleObjectGenerator : IIncrementalGenerator
 
         var isPartial = classSyntax.Modifiers.Any(SyntaxKind.PartialKeyword);
 
-        var attributeData = classSymbol.GetAttributes()
-            .First(a => a.AttributeClass?.ToDisplayString() == AttributeFullName);
-
-        var requireManual = attributeData.NamedArguments
-            .FirstOrDefault(kvp => kvp.Key == "AcceptPristineValues")
-            .Value.Value as bool? ?? false;
-
         return new Model(
             Namespace: classSymbol.ContainingNamespace.IsGlobalNamespace
                 ? string.Empty
                 : classSymbol.ContainingNamespace.ToDisplayString(),
             ClassName: classSymbol.Name,
             FullTypeName: classSymbol.ToDisplayString(),
-            IsPartial: isPartial,
-            AcceptPristineChanges: requireManual);
+            IsPartial: isPartial);
     }
 
     private static SourceText Generate(Model model)
@@ -76,15 +67,13 @@ public class RevertibleObjectGenerator : IIncrementalGenerator
             sb.AppendLine();
         }
 
-        var autoAccept = model.AcceptPristineChanges ? "true" : "false";
-
         sb.AppendLine($$"""
             partial class {{model.ClassName}}
             {
                 private global::Dhazel.Revertibles.Revertible? __revertible;
 
-                private global::Dhazel.Revertibles.Revertible __Revertible =>
-                    __revertible ??= global::Dhazel.Revertibles.Revertible.Track(this, {{autoAccept}});
+                private global::Dhazel.Revertibles.IRevertible __Revertible =>
+                    __revertible ??= new global::Dhazel.Revertibles.Revertible(this, false);
 
                 /// <inheritdoc cref="global::Dhazel.Revertibles.IRevertible.AcceptChanges"/>
                 public void AcceptChanges(string? propertyName = null) => __Revertible.AcceptChanges(propertyName);
